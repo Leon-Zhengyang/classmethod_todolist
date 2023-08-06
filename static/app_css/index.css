@@ -1,0 +1,103 @@
+body{
+      margin: 2% 10% ;
+}
+.area{
+      width: auto;
+      display: flex;
+      margin: 1% 0%;
+      position: relative;
+      height: 30px;
+}
+
+.area *{
+      margin-right: 10px;
+}
+
+.title{
+      width: 200px;
+}
+
+.content{
+      width: 500px;
+}
+
+.button{
+      width: 100px;
+      font-size: 15px;
+      cursor: pointer;
+      border-radius: 2px;
+      border: none;
+      color: white;
+      background-color:#006FD5;
+}
+
+.button:hover{
+      background-color:#3990e0;
+}
+
+.button.regist{
+      background-color: #c7c7c7;
+}
+
+.tab-label{
+      background-color: #006FD5;
+      color: white;
+      display:block;
+      height: 30px;
+      width: 100px;
+      text-align: center;
+      font-size: 18px;
+      border-radius: 2px;
+      line-height: 30px;
+}
+
+.list-search-table{
+      margin: 1% 0%;
+      overflow: scroll;
+      width: 99%;
+      height: 10%;
+      border-spacing: 1px;
+      table-layout: fixed;
+}
+
+.list-search-table td{
+      white-space: nowrap;
+      border-bottom:1px solid;
+      background-color: #FFF;
+      padding: 5px;
+      height: 36px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+}
+
+.title-th{
+      width: 150px;
+}
+
+.content-th{
+      width: 300px;
+}
+
+.operation-th{
+      width: 150px;
+}
+
+.list-search-table thead th{
+      background-color: #006FD5;
+      color: seashell;
+      position: sticky;
+      top:0;
+      z-index: 2;
+}
+
+#td-operate{
+      text-align: center;  
+}
+
+#td-operate #delete-btn{
+      margin-left: 8px;  
+}
+
+#error-msg{
+      color:red
+}
