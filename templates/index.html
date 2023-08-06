@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ja">
+<head>
+      <meta charset="UTF-8">
+      <title>Todo List</title>
+      <link rel="stylesheet" href="{% static 'app_css/index.css'%}">
+      <script type="module" src="{% static 'app_js/index.js'%}"></script>
+      <script src="{% static 'app_js/edit_delete.js'%}"></script>
+</head>
+<body>
+      <label><h2>Todo List</h2></label>
+      <div class="regist area">
+            <input class="title" id="title-regist" type="text" placeholder="タイトル(必須)">
+            <input type="text" class="content" id="content-regist" placeholder="内容(必須)">
+            <input type="button" class="button" id="reset_regist-btn" value="リセット">
+            <input type="button" class="button regist" id="regist-btn" value="登録" disabled>
+      </div>
+      <div id="error-msg"></div>
+      <div class="search">
+            <label class="tab-label" id="tab-label-search" for="tab-search-list">検索一覧</label>
+            <div class="search area">
+                  <input type="text" class="title" id="title-search" placeholder="タイトル">
+                  <input type="text" class="content" id="content-search" placeholder="内容">
+                  <input type="button" class="button" id="reset_search-btn" value="リセット">
+                  <input type="button" class="button search" id="search-btn" value="検索">
+            </div>
+            <table class="list-search-table" id="list-table">
+                  <thead>
+                        <tr>
+                              <th class="title-th">タイトル</th>
+                              <th class="content-th">内容</th>
+                              <th class="operation-th">操作</th>
+                        </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+            </table>
+      </div>
+</body>
+</html>
