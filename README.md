@@ -22,7 +22,10 @@ Todolist app whih basic CRUD funcions by using Django framework
 ### step4 Install the required packages
 `pip install -r requirements.txt`
 
-### step5 Run the project
+### step5 Apply dateabase migrations
+`python manage.py migrate`
+
+### step6 Run the project
 `python manage.py runserver`
 
 ## Run all tests
