@@ -39,7 +39,7 @@ def test_regist_new(priority_todo_factory):
 def test_regist_fail_blank(priority_todo_factory):
       priority_todo_factory
       response = client.post('/api/todo_items/', {'title': '', 'content': 'new content'}, format='json')
-      assert response.status_code == 500
+      assert response.status_code == 400
       assert response.json()["error"] == 'スペースを除いて、タイトルを入力してください。'
 
 # todo新規作成（失敗:重複）
@@ -47,7 +47,7 @@ def test_regist_fail_blank(priority_todo_factory):
 def test_regist_fail_double(priority_todo_factory):
       priority_todo_factory
       response = client.post('/api/todo_items/', {'title': "todo1", 'content': "content1"}, format='json')
-      assert response.status_code == 500
+      assert response.status_code == 409
       assert response.json()["error"] == 'このタイトルは既に登録済み、別のタイトルを登録してください。'
 
 # todo編集（成功）
@@ -70,7 +70,15 @@ def test_edit_fail_blank(priority_todo_factory):
       id = todo.id
       response = client.put('/api/todo_items/{0}/'.format(id), {'title': "", 'content': "content1_update"}, format='json')
       assert response.json()["error"] == 'スペースを除いて、タイトルを入力してください。'
-      assert response.status_code == 500
+      assert response.status_code == 400
+
+# todo編集（失敗：todo存在しない）
+@pytest.mark.django_db
+def test_edit_fail_not_exist(priority_todo_factory):
+      priority_todo_factory
+      response = client.put('/api/todo_items/100/', {'title': "title1_update", 'content': "content1_update"}, format='json')
+      assert response.json()["error"] == '該当のtodoが見つかりません!'
+      assert response.status_code == 404
 
 # todo編集（失敗：タイトルが重複）
 @pytest.mark.django_db
@@ -80,7 +88,7 @@ def test_edit_fail_double(priority_todo_factory):
       id = todo.id
       response = client.put('/api/todo_items/{0}/'.format(id), {'title': "todo2", 'content': "content1_update"}, format='json')
       assert response.json()["error"] == 'このタイトルは既に登録済み、別のタイトルを登録してください。'
-      assert response.status_code == 500
+      assert response.status_code == 409
 
 # todo削除（成功）
 @pytest.mark.django_db
@@ -94,6 +102,14 @@ def test_delete(priority_todo_factory):
       assert todo_deleted.deleted == 1
       assert todo_deleted.title == "todo1"
       assert response.status_code == 200
+
+# todo削除（失敗）
+@pytest.mark.django_db
+def test_delete_not_exist(priority_todo_factory):
+      priority_todo_factory
+      response = client.delete('/api/todo_items/100/', format='json')
+      assert response.json()["error"] == '該当のtodoが見つかりません!'
+      assert response.status_code == 404
 
 
 # todo検索（成功:titleのみ、件数:3）

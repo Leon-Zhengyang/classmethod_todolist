@@ -14,3 +14,11 @@ class validate:
       def check_double_edit_title(cls, title, pk):
             todos = Todo.objects.filter(title=title).exclude(deleted=1).exclude(pk=pk)
             return False if todos.count() > 0 else True
+      
+      @classmethod
+      def check_exist(cls, pk):
+            try:
+                  Todo.objects.get(pk=pk, deleted=0)
+                  return True
+            except:
+                  return False

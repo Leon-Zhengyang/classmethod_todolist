@@ -27,3 +27,6 @@ Todolist app whih basic CRUD funcions by using Django framework
 
 ## Run all tests
 `pytest .`
+
+## API Document
+check `swagger.yaml`

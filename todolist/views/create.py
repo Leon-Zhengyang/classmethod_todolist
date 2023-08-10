@@ -22,10 +22,10 @@ def create_todo_item(request):
     title_double_check = validate.check_double_title(title)
     if not title_double_check:
         todo_err = {"error": error_msg.err_double_title}
-        return HttpResponse(json.dumps(todo_err), status=500, content_type="application/json") 
+        return HttpResponse(json.dumps(todo_err), status=409, content_type="application/json") 
     if not title_blank_check:
         todo_err = {"error": error_msg.err_title_blank}
-        return HttpResponse(json.dumps(todo_err), status=500, content_type="application/json") 
+        return HttpResponse(json.dumps(todo_err), status=400, content_type="application/json") 
 
     # create new todo list
     if title_blank_check and title_double_check:

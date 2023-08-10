@@ -1,4 +1,3 @@
-
 // edit todo
 function editRow(obj){
       let objtr = obj.parentNode.parentNode

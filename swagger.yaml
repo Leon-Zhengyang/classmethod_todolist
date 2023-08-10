@@ -1,0 +1,146 @@
+openapi: "3.0.0"
+info:
+  title: "ToDo API"
+  description: "ToDoリストのCRUD操作のためのAPI"
+  version: "1.0.0"
+paths:
+  /api/all_list/:
+    get:
+      summary: "すべてToDoリストの取得"
+      operationId: "get_todo_list"
+      responses:
+        '200':
+          description: "成功"
+          content:
+            application/json:
+              example: |
+                [
+                  {"title": "タイトル1", "content": "内容1"},
+                  {"title": "タイトル2", "content": "内容2"},
+                  {"title": "タイトル3", "content": "内容3"}
+                ]
+  /api/todo_items/:
+    post:
+      summary: "新しいToDoを作成"
+      operationId: "create_todo_item"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: "ToDoのタイトル"
+                content:
+                  type: string
+                  description: "ToDoの内容"
+      responses:
+        '201':
+          description: "新規作成成功"
+          content:
+            application/json:
+              example: |
+                {"title": "新しいタイトル", "content": "新しい内容"}
+        '400':
+          description: "新規作成失敗"
+          content:
+            application/json:
+              example: |
+                {"error": "スペースを除いて、タイトルを入力してください。"}
+        '409':
+          description: "新規作成失敗"
+          content:
+            application/json:
+              example: |
+                {"error": "このタイトルは既に登録済み、別のタイトルを登録してください。"}
+  /api/todo_items/list/:
+    get:
+      summary: "ToDoリストの検索"
+      operationId: "search_todo_list"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: "タイトル1"
+                content:
+                  type: string
+                  description: "内容1"
+      responses:
+        '200':
+          description: "成功"
+          content:
+            application/json:
+              example: |
+                [
+                  {"title": "タイトル1", "content": "内容1"}
+                ]
+    /api/todo_items/<int:pk>/:
+      update:
+        summary: "ToDoリストの更新"
+        operationId: "update_todo_list"
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: pk
+                    description: 1
+                  title:
+                    type: string
+                    description: "タイトル更新"
+                  content:
+                    type: string
+                    description: "内容更新"
+        responses:
+          '200':
+            description: "更新成功"
+            content:
+              application/json:
+                example: |
+                  [
+                    {"title": "タイトル更新", "content": "内容更新"}
+                  ]
+          '400':
+          description: "更新失敗"
+          content:
+            application/json:
+              example: |
+                {"error": "スペースを除いて、タイトルを入力してください。"}
+          '409':
+            description: "更新失敗"
+            content:
+              application/json:
+                example: |
+                  {"error": "このタイトルは既に登録済み、別のタイトルを登録してください。"}
+        delete:
+          summary: "ToDoリストの削除"
+          operationId: "delete_todo_list"
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    id:
+                      type: pk
+                      description: 1
+          responses:
+            '200':
+              description: "成功"
+              content:
+                application/json:
+                  example: |
+                    [
+                      {"id": 1}
+                    ]
